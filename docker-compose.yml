@@ -1,0 +1,61 @@
+﻿version: '3.4'
+
+services:
+  db: 
+    image: mysql:8.0.32
+    environment:
+      MYSQL_ROOT_PASSWORD: DATABASE21
+      MYSQL_DATABASE: TelcomAuth
+    #volumes:
+    #   - dbdata:/var/lib/mysql
+    #   - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d
+    restart: always
+    #used so the data is persisted
+    container_name: dbmysql
+    ports:
+        - 3305:3306
+    
+    
+  authenticationservice:
+    depends_on:
+       - db
+    image: ${DOCKER_REGISTRY-}authenticationservice
+    restart: on-failure
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: Dockerfile
+  
+      #other apis need to have different ports
+    ports:
+      - 8001:80
+
+
+#using eureka
+volumes:
+  dbdata:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
