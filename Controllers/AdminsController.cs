@@ -63,7 +63,7 @@ namespace AuthenticationService.Controllers
             //if we use a filter to put the token in the header response.
             //return Ok();
         }
-
+        
         private bool AdminExists(int id)
         {
             return (_context.Admin?.Any(e => e.Id == id)).GetValueOrDefault();
